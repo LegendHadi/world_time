@@ -14,10 +14,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     data = ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
     String bgImage = data['isDayTime'] ? 'day.jfif' : 'night.jfif';
+    Color textColor = data['isDayTime'] ? Colors.black : Colors.blue;
+    Color editLocationColor = data['isDayTime'] ? Colors.brown : Colors.white;
 
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.only(top: 120),
+        padding: const EdgeInsets.only(top: 100),
         decoration: BoxDecoration(
             image: DecorationImage(
           image: AssetImage('assets/$bgImage'),
@@ -29,28 +31,42 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Navigator.pushNamed(context, '/location');
               },
-              label: const Text('edit location'),
-              icon: const Icon(Icons.edit_location),
+              label: Text(
+                'edit location',
+                style: TextStyle(
+                  color: editLocationColor,
+                  fontSize: 20,
+                ),
+              ),
+              icon: Icon(
+                Icons.edit_location,
+                color: editLocationColor,
+              ),
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                shadowColor: WidgetStateProperty.all(Colors.transparent),
+              ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 60),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   data['location'],
-                  style: const TextStyle(
-                    fontSize: 28,
+                  style: TextStyle(
+                    fontSize: 35,
                     letterSpacing: 2,
-                    color: Colors.black,
+                    color: textColor,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             Text(
               data['time'],
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 66,
+                color: textColor,
               ),
             ),
           ],
