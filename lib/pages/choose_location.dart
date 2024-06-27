@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:world_time/services/world_time.dart';
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({super.key});
@@ -8,17 +9,58 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+  List<WorldTime> locations = [
+    WorldTime(location: 'Kabul', flag: 'AFGHANISTAN.jfif', url: 'Asia/Kabul'),
+    WorldTime(
+        location: 'Melbourne',
+        flag: 'AUSTRALIA.jfif',
+        url: 'Australia/Melbourne'),
+    WorldTime(location: 'Jakarta', flag: 'INDONESIA.jfif', url: 'Asia/Jakarta'),
+    WorldTime(location: 'Seoul', flag: 'SOUTH KOREA.jfif', url: 'Asia/Seoul'),
+    WorldTime(location: 'Tehran', flag: 'IRAN.jfif', url: 'Asia/Tehran'),
+    WorldTime(location: 'Toronto', flag: 'CANADA.jfif', url: 'America/Toronto'),
+    WorldTime(
+        location: 'Istanbul', flag: 'TURKEY.jfif', url: 'Europe/Istanbul'),
+    WorldTime(location: 'London', flag: 'UK.jpg', url: 'Europe/London'),
+    WorldTime(location: 'Berlin', flag: 'GERMANY.jfif', url: 'Europe/Berlin'),
+    WorldTime(location: 'New York', flag: 'USA.jpg', url: 'America/New_York'),
+    WorldTime(
+        location: 'Los_Angeles', flag: 'USA.jpg', url: 'America/Los_Angeles'),
+    WorldTime(
+        location: 'Sao_Paulo', flag: 'BRAZIL.jfif', url: 'America/Sao_Paulo'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Choose a Location'),
+        title: const Text('Choose a Location'),
         centerTitle: true,
         backgroundColor: Colors.blue[900],
         elevation: 0,
       ),
-      body: Text('choose location'),
+      body: ListView.builder(
+        itemCount: locations.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+            child: Card(
+              color: Colors.tealAccent[100],
+              child: ListTile(
+                onTap: () {
+                  print(locations[index].location);
+                },
+                title: Text(locations[index].location),
+                leading: CircleAvatar(
+                  backgroundImage:
+                      AssetImage('assets/${locations[index].flag}'),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
