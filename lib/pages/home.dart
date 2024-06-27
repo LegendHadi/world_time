@@ -12,12 +12,17 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    print(data);
+    data = ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
+    String bgImage = data['isDayTime'] ? 'day.jfif' : 'night.jfif';
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 120),
-        color: Colors.white,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage('assets/$bgImage'),
+          fit: BoxFit.cover,
+        )),
         child: Column(
           children: [
             ElevatedButton.icon(
