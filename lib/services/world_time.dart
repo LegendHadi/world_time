@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
   late String location;
@@ -33,7 +34,7 @@ class WorldTime {
             hours: int.parse(offset.split(':').first),
             minutes: int.parse(offset.split(':').last)));
       }
-      time = now.toString();
+      time = DateFormat.jm().format(now);
       // print(now);
     } catch (e) {
       print('caugch error: $e');
