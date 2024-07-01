@@ -8,11 +8,19 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late Map data;
+  Map<String, dynamic> data = {};
+  bool isFirstTime = true;
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
+    // data = data.isNotEmpty
+    //     ? data
+    //     : ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    if (isFirstTime) {
+      isFirstTime = false;
+      data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    }
+
     String bgImage = data['isDayTime'] ? 'day.jfif' : 'night.jfif';
     Color textColor = data['isDayTime'] ? Colors.black : Colors.blue;
     Color editLocationColor = data['isDayTime'] ? Colors.brown : Colors.white;
@@ -28,8 +36,14 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, '/location');
+              onPressed: () async {
+                final result = await Navigator.pushNamed(context, '/location')
+                    as Map<String, dynamic>?;
+                if (result != null) {
+                  setState(() {
+                    data = result;
+                  });
+                }
               },
               label: Text(
                 'edit location',
