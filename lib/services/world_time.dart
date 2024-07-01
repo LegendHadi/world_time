@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
@@ -20,11 +21,8 @@ class WorldTime {
       Response response =
           await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
       Map data = jsonDecode(response.body);
-      // print(data);
       String datetime = data['datetime'];
       String offset = data['utc_offset'].substring(1, 6);
-      // print(datetime);
-      // print(offset);
       DateTime now = DateTime.parse(datetime);
       if (data['utc_offset'].toString().startsWith('+')) {
         now = now.add(Duration(
@@ -37,9 +35,8 @@ class WorldTime {
       }
       isDayTime = now.hour > 6 && now.hour < 19 ? true : false;
       time = DateFormat.jm().format(now);
-      // print(now);
     } catch (e) {
-      print('caugch error: $e');
+      debugPrint('caugch error: $e');
       time = 'can not get time data';
     }
   }
