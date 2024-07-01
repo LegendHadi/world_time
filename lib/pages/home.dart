@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:world_time/services/world_time.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -8,22 +9,19 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Map<String, dynamic> data = {};
+  late WorldTime data;
   bool isFirstTime = true;
 
   @override
   Widget build(BuildContext context) {
-    // data = data.isNotEmpty
-    //     ? data
-    //     : ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     if (isFirstTime) {
       isFirstTime = false;
-      data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      data = ModalRoute.of(context)!.settings.arguments as WorldTime;
     }
 
-    String bgImage = data['isDayTime'] ? 'day.jfif' : 'night.jfif';
-    Color textColor = data['isDayTime'] ? Colors.black : Colors.blue;
-    Color editLocationColor = data['isDayTime'] ? Colors.brown : Colors.white;
+    String bgImage = data.isDayTime ? 'day.jfif' : 'night.jfif';
+    Color textColor = data.isDayTime ? Colors.black : Colors.blue;
+    Color editLocationColor = data.isDayTime ? Colors.brown : Colors.white;
 
     return Scaffold(
       body: Container(
@@ -38,7 +36,7 @@ class _HomeState extends State<Home> {
             ElevatedButton.icon(
               onPressed: () async {
                 final result = await Navigator.pushNamed(context, '/location')
-                    as Map<String, dynamic>?;
+                    as WorldTime?;
                 if (result != null) {
                   setState(() {
                     data = result;
@@ -66,7 +64,7 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  data['location'],
+                  data.location,
                   style: TextStyle(
                     fontSize: 35,
                     letterSpacing: 2,
@@ -77,7 +75,7 @@ class _HomeState extends State<Home> {
             ),
             const SizedBox(height: 30),
             Text(
-              data['time'],
+              data.time,
               style: TextStyle(
                 fontSize: 66,
                 color: textColor,

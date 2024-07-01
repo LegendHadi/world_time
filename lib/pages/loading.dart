@@ -14,12 +14,7 @@ class _LoadingState extends State<Loading> {
     WorldTime instance = WorldTime(
         location: 'Berlin', flag: 'GERMANY.jfif', url: 'Europe/Berlin');
     await instance.getData();
-    Navigator.pushReplacementNamed(context, '/home', arguments: {
-      'location': instance.location,
-      'flag': instance.flag,
-      'time': instance.time,
-      'isDayTime': instance.isDayTime,
-    });
+    Navigator.pushReplacementNamed(context, '/home', arguments: instance);
   }
 
   @override
