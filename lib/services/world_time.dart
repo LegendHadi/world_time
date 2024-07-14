@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
 class WorldTime {
   late String location;
-  late String time;
+  late String? time;
   late String flag;
   late String url;
-  late bool isDayTime;
+  late bool? isDayTime;
 
   WorldTime({
     required this.location,
@@ -36,8 +35,8 @@ class WorldTime {
       isDayTime = now.hour > 6 && now.hour < 19 ? true : false;
       time = DateFormat.jm().format(now);
     } catch (e) {
-      debugPrint('caugch error: $e');
-      time = 'can not get time data';
+      time = null;
+      isDayTime = null;
     }
   }
 }

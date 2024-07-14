@@ -33,8 +33,13 @@ class _ChooseLocationState extends State<ChooseLocation> {
   void updateTime(index) async {
     WorldTime instance = locations[index];
     await instance.getData();
-    // ignore: use_build_context_synchronously
-    Navigator.pop(context, instance);
+    if (instance.time == null) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacementNamed(context, '/error');
+    } else {
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context, instance);
+    }
   }
 
   @override

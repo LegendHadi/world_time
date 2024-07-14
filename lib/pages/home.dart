@@ -19,9 +19,9 @@ class _HomeState extends State<Home> {
       data = ModalRoute.of(context)!.settings.arguments as WorldTime;
     }
 
-    String bgImage = data.isDayTime ? 'day.jfif' : 'night.jfif';
-    Color textColor = data.isDayTime ? Colors.black : Colors.blue;
-    Color editLocationColor = data.isDayTime ? Colors.brown : Colors.white;
+    String bgImage = data.isDayTime! ? 'day.jfif' : 'night.jfif';
+    Color textColor = data.isDayTime! ? Colors.black : Colors.blue;
+    Color editLocationColor = data.isDayTime! ? Colors.brown : Colors.white;
 
     return Scaffold(
       body: Container(
@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
             ),
             const SizedBox(height: 30),
             Text(
-              data.time,
+              data.time!,
               style: TextStyle(
                 fontSize: 66,
                 color: textColor,
